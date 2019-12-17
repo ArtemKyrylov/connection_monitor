@@ -6,9 +6,12 @@ from threading import Thread
 import subprocess
 import re
 import os
+
+hosts = []
 response_data = {}
 rrd_db_path = "rrd_db"
 rrd_graph_path = "rrd_graph"
+hosts_file = "hosts.txt"
 
 
 class CheckConnection(Thread):
@@ -41,59 +44,74 @@ class CheckConnection(Thread):
             response_data.update({self.url: time_r_s})
 
 
-
-
-
-class GetHostsFromFile:
-
-    def __init__(self):
-        self.host_file = 'hosts.txt'
-        self.host_list = []
-        self.line = ""
+class Hosts(object):
 
     @staticmethod
-    def check_if_host_file_exist(self):
-        if os.path.isfile(self.host_file):
+    def create_hosts_file(file_name):
+        file = open(file_name, "w+")
+        file.close()
+
+    @staticmethod
+    def check_if_file_exist(file_name):
+        if os.path.isfile(file_name):
             return True
         else:
-            print("No hosts file, please create hosts.txt file, with host line - for example: www.facebook.com, "
-                  "Attention! all host must be added with new line")
             return False
 
-    def read_host_file(self):
-        with open(self.host_file, 'r+') as file:
-            for line in file:
-                line = line.replace('\n', '')
-                self.host_list.append(line)
-                return self.line
-
-    def if_hostname_does_not_exist_in_host_list(self):
-        if self.line
-
-
-
-
-
-    def get_host():
-        host_file_name = 'hosts.txt'
-        if os.path.isfile(host_file_name):
-            file = open(host_file_name, 'r+')
-            for line in file:
-                line = line.replace('\n','')
-                if line not in host:
-                    host.append(line)
-                    for item in host:
-                        item = ''.join(item)
-                        if item not in file.read():
-                            host.remove(item)
+    @staticmethod
+    def check_if_file_not_empty(file_name):
+        if os.stat(file_name).st_size == 0:
+            return False
         else:
-        print("No hosts file, please add hosts.txt file, with host line - for example: www.facebook.com")
-    print(host)
+            return True
+
+    @staticmethod
+    def read_host_file(self):
+        with open(hosts_file, "r+") as hf:
+            for line in hf:
+                return line
+
+    @staticmethod
+    def reformat_host_line(self, line):
+        line = ''.join(line)
+        hostname = line.replace('\n', '')
+
+    @staticmethod
+    def add_host_to_list(self, hostname):
+        hosts.append(hostname)
+
+    @staticmethod
+    def delete_host_from_list(self, hostname):
+        for item in hosts:
+            item = ''.join(item)
+            if re.match(hostname, item):
+                hosts.remove(item)
 
 
 def main():
+    host_file_work = Hosts()
+    hosts_file_check = host_file_work.check_if_file_exist(hosts_file)
+    if hosts_file_check is True:
+        print("Hosts file Exist")
+        hosts_file_check = host_file_work.check_if_file_not_empty(hosts_file)
+        if hosts_file_check is True:
+            print("Error!: File empty")
+    else:
+        print("Error!: Hosts file does not exist!")
+        print("Creating hosts file txt: please add hosts to file line by line, for example: www.facebook.com")
+        host_file_work.create_hosts_file(hosts_file)
+        hosts_file_check = host_file_work.check_if_file_exist(hosts_file)
+        if hosts_file_check is True:
+            print("Hosts file created successfully")
+            hosts_file_check = host_file_work.check_if_file_not_empty(hosts_file)
+            if hosts_file_check is True:
+                print("Error!: File empty")
+                print("Please add hosts to file line by line, for example: www.facebook.com")
+        else:
+            print("Error!: Hosts file NOT created please check folder permission or create file manually!")
+    
     threads = []
-    for item, url in enumerate(host):
+    for item, url in enumerate(hosts):
         name = "Stream %s" % (item + 1)
         thread = CheckConnection(url, name)
         threads.append(thread)
@@ -111,7 +129,6 @@ def main():
 
 if __name__ == "__main__":
     while True:
-        get_host()
         main()
         print(response_data)
         sleep(1)
