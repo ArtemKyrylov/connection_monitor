@@ -12,6 +12,7 @@ response_data = {}
 rrd_db_path = "rrd_db"
 rrd_graph_path = "rrd_graph"
 hosts_file = "hosts.txt"
+file_size = 0
 
 
 class CheckConnection(Thread):
@@ -89,8 +90,13 @@ class Hosts(object):
             if re.match(hostname, item):
                 hosts_list.remove(item)
 
+    @staticmethod
+    def get_file_size(file_name):
+        fsize = os.stat(file_name)
+        return fsize.st_size
 
-def main():
+
+def work_with_hosts_file():
     file_status = False
     host_file_work = Hosts()
     hosts_file_check = host_file_work.check_if_file_exist(hosts_file)
@@ -123,22 +129,32 @@ def main():
             hostname = host_file_work.reformat_host_line(item)
             if hostname not in hosts_list:
                 host_file_work.add_host_to_list(hostname)
-    for list_item in hosts_list:
-        list_item_line = ''.join(list_item)
-        hosts_file_read = host_file_work.read_host_file(hosts_file)
-        for file_line in hosts_file_read:
-            if not re.match(list_item_line, file_line):
-                host_file_work.delete_host_from_list(list_item_line)
+    file_size = host_file_work.get_file_size(hosts_file)
     print(hosts_list)
-    # threads = []
-    # for item, url in enumerate(hosts_list):
-    #     name = "Stream %s" % (item + 1)
-    #     thread = CheckConnection(url, name)
-    #     threads.append(thread)
-    #     thread.start()
-    #
-    # for thread in threads:
-    #     thread.join()
+    return file_size
+
+
+def get_connection_hosts_info():
+    threads = []
+    for item, url in enumerate(hosts_list):
+        name = "Stream %s" % (item + 1)
+        thread = CheckConnection(url, name)
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
+
+
+def compare_hosts_file_size():
+    host_file_work = Hosts()
+    file_size_check = host_file_work.get_file_size(hosts_file)
+    if file_size != file_size_check:
+
+
+
+def main():
+    work_with_hosts_file()
+    get_connection_hosts_info()
     # rrd_create = Rrd_base_create(host, rrd_db_path)
     # rrd_create.check_if_base_path_exist()
     # rrd_update = Update_rrd_base(response_data, rrd_db_path)
@@ -148,7 +164,8 @@ def main():
 
 
 if __name__ == "__main__":
-    while True:
-        main()
-        # print(response_data)
-        sleep(1)
+    main()
+    # while True:
+    #     main()
+    #     # print(response_data)
+    #     sleep(1)
