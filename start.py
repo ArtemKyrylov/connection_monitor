@@ -156,9 +156,8 @@ def compare_hosts_file_size():
                 host_file_work.add_host_to_list(hostname)
     elif file_size > file_size_check:
         hosts_file_read = host_file_work.read_host_file(hosts_file)
-        for item_host_list in hosts_list:
-            for item_host_file in hosts_file_read:
-                                
+        for item_host_file in hosts_file_read:
+
     return file_size
 
 
