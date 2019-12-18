@@ -7,7 +7,7 @@ import subprocess
 import re
 import os
 
-hosts = []
+hosts_list = []
 response_data = {}
 rrd_db_path = "rrd_db"
 rrd_graph_path = "rrd_graph"
@@ -61,34 +61,37 @@ class Hosts(object):
     @staticmethod
     def check_if_file_not_empty(file_name):
         if os.stat(file_name).st_size == 0:
-            return False
-        else:
             return True
+        else:
+            return False
 
     @staticmethod
-    def read_host_file(self):
-        with open(hosts_file, "r+") as hf:
-            for line in hf:
+    def read_host_file(file_name):
+        with open(file_name, "r+") as hf:
+            line = hf.readlines()
+            while line:
                 return line
 
     @staticmethod
-    def reformat_host_line(self, line):
+    def reformat_host_line(line):
         line = ''.join(line)
-        hostname = line.replace('\n', '')
+        line = line.replace('\n', '')
+        return line
 
     @staticmethod
-    def add_host_to_list(self, hostname):
-        hosts.append(hostname)
+    def add_host_to_list(hostname):
+        hosts_list.append(hostname)
 
     @staticmethod
-    def delete_host_from_list(self, hostname):
-        for item in hosts:
+    def delete_host_from_list(hostname):
+        for item in hosts_list:
             item = ''.join(item)
             if re.match(hostname, item):
-                hosts.remove(item)
+                hosts_list.remove(item)
 
 
 def main():
+    file_status = False
     host_file_work = Hosts()
     hosts_file_check = host_file_work.check_if_file_exist(hosts_file)
     if hosts_file_check is True:
@@ -96,6 +99,9 @@ def main():
         hosts_file_check = host_file_work.check_if_file_not_empty(hosts_file)
         if hosts_file_check is True:
             print("Error!: File empty")
+            file_status = False
+        else:
+            file_status = True
     else:
         print("Error!: Hosts file does not exist!")
         print("Creating hosts file txt: please add hosts to file line by line, for example: www.facebook.com")
@@ -107,18 +113,32 @@ def main():
             if hosts_file_check is True:
                 print("Error!: File empty")
                 print("Please add hosts to file line by line, for example: www.facebook.com")
+                file_status = False
         else:
             print("Error!: Hosts file NOT created please check folder permission or create file manually!")
-    
-    threads = []
-    for item, url in enumerate(hosts):
-        name = "Stream %s" % (item + 1)
-        thread = CheckConnection(url, name)
-        threads.append(thread)
-        thread.start()
-
-    for thread in threads:
-        thread.join()
+            file_status = False
+    if file_status is True:
+        hosts_file_read = host_file_work.read_host_file(hosts_file)
+        for item in hosts_file_read:
+            hostname = host_file_work.reformat_host_line(item)
+            if hostname not in hosts_list:
+                host_file_work.add_host_to_list(hostname)
+    for list_item in hosts_list:
+        list_item_line = ''.join(list_item)
+        hosts_file_read = host_file_work.read_host_file(hosts_file)
+        for file_line in hosts_file_read:
+            if not re.match(list_item_line, file_line):
+                host_file_work.delete_host_from_list(list_item_line)
+    print(hosts_list)
+    # threads = []
+    # for item, url in enumerate(hosts_list):
+    #     name = "Stream %s" % (item + 1)
+    #     thread = CheckConnection(url, name)
+    #     threads.append(thread)
+    #     thread.start()
+    #
+    # for thread in threads:
+    #     thread.join()
     # rrd_create = Rrd_base_create(host, rrd_db_path)
     # rrd_create.check_if_base_path_exist()
     # rrd_update = Update_rrd_base(response_data, rrd_db_path)
@@ -130,5 +150,5 @@ def main():
 if __name__ == "__main__":
     while True:
         main()
-        print(response_data)
+        # print(response_data)
         sleep(1)
