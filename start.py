@@ -148,24 +148,36 @@ def get_connection_hosts_info():
 def compare_hosts_file_size():
     host_file_work = Hosts()
     file_size_check = host_file_work.get_file_size(hosts_file)
-    if file_size != file_size_check:
-
+    if file_size < file_size_check:
+        hosts_file_read = host_file_work.read_host_file(hosts_file)
+        for item in hosts_file_read:
+            hostname = host_file_work.reformat_host_line(item)
+            if hostname not in hosts_list:
+                host_file_work.add_host_to_list(hostname)
+    elif file_size > file_size_check:
+        hosts_file_read = host_file_work.read_host_file(hosts_file)
+        for item_host_list in hosts_list:
+            for item_host_file in hosts_file_read:
+                                
+    return file_size
 
 
 def main():
     work_with_hosts_file()
     get_connection_hosts_info()
+
+
+if __name__ == "__main__":
+    main()
+    while True:
+        compare_hosts_file_size()
+        print(hosts_list)
+    #     main()
+    #     # print(response_data)
+    #     sleep(1)
     # rrd_create = Rrd_base_create(host, rrd_db_path)
     # rrd_create.check_if_base_path_exist()
     # rrd_update = Update_rrd_base(response_data, rrd_db_path)
     # rrd_update.update_rrd_base()
     # rrd_graph_create = Draw_rrd_data_graphs(host, rrd_graph_path, rrd_db_path)
     # rrd_graph_create.check_if_graph_path_exist()
-
-
-if __name__ == "__main__":
-    main()
-    # while True:
-    #     main()
-    #     # print(response_data)
-    #     sleep(1)
