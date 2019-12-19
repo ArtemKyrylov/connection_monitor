@@ -71,10 +71,6 @@ class Hosts(object):
             while line:
                 return line
 
-    def get_file_size(self):
-        f_size = os.stat(self.hosts_file)
-        return f_size.st_size
-
     @staticmethod
     def reformat_host_line(line):
         line = ''.join(line)
@@ -84,12 +80,6 @@ class Hosts(object):
     @staticmethod
     def add_host_to_list(hostname):
         hosts_list.append(hostname)
-
-    @staticmethod
-    def delete_host_from_list(hostname):
-        for item in hosts_list:
-            if not re.match(hostname, item):
-                hosts_list.remove(item)
 
 
 def work_with_hosts_file():
@@ -125,8 +115,6 @@ def work_with_hosts_file():
             hostname = host_file_work.reformat_host_line(item)
             if hostname not in hosts_list:
                 host_file_work.add_host_to_list(hostname)
-    file_size = host_file_work.get_file_size()
-    return file_size
 
 
 def get_connection_hosts_info():
@@ -140,31 +128,26 @@ def get_connection_hosts_info():
         thread.join()
 
 
-def compare_hosts_file_size(file_size):
+def compare_hosts_file_size():
     host_file_work = Hosts()
-    file_size_check = host_file_work.get_file_size()
-    print("file size check", file_size_check)
-    if file_size < file_size_check:
-        hosts_file_read = host_file_work.read_host_file()
-        for item in hosts_file_read:
-            hostname = host_file_work.reformat_host_line(item)
-            if hostname not in hosts_list:
-                host_file_work.add_host_to_list(hostname)
-    elif file_size > file_size_check:
-        hosts_file_read = host_file_work.read_host_file()
-        for item_file in hosts_file_read:
-            hostname = host_file_work.reformat_host_line(item_file)
-            host_file_work.delete_host_from_list(hostname)
-    file_size = file_size_check
-    return file_size
+    file_hostnames_updated = []
+    hosts_file_read = host_file_work.read_host_file()
+    for item in hosts_file_read:
+        hostname = host_file_work.reformat_host_line(item)
+        file_hostnames_updated.append(hostname)
+    for t_item in file_hostnames_updated:
+        if t_item not in hosts_list:
+            host_file_work.add_host_to_list(t_item)
+    for h_item in hosts_list:
+        if h_item not in file_hostnames_updated:
+            hosts_list.remove(h_item)
 
 
 if __name__ == "__main__":
-    size = work_with_hosts_file()
+    work_with_hosts_file()
     get_connection_hosts_info()
     while True:
-        size = compare_hosts_file_size(size)
-        print(size)
+        compare_hosts_file_size()
         print(hosts_list)
         sleep(5.0)
     #     main()
