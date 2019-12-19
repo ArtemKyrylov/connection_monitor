@@ -12,7 +12,6 @@ response_data = {}
 rrd_db_path = "rrd_db"
 rrd_graph_path = "rrd_graph"
 hosts_file = "hosts.txt"
-file_size = 0
 
 
 class CheckConnection(Thread):
@@ -47,31 +46,34 @@ class CheckConnection(Thread):
 
 class Hosts(object):
 
-    @staticmethod
-    def create_hosts_file(file_name):
-        file = open(file_name, "w+")
+    def __init__(self):
+        self.hosts_file = hosts_file
+
+    def create_hosts_file(self):
+        file = open(self.hosts_file, "w+")
         file.close()
 
-    @staticmethod
-    def check_if_file_exist(file_name):
-        if os.path.isfile(file_name):
+    def check_if_file_exist(self):
+        if os.path.isfile(self.hosts_file):
             return True
         else:
             return False
 
-    @staticmethod
-    def check_if_file_not_empty(file_name):
-        if os.stat(file_name).st_size == 0:
+    def check_if_file_not_empty(self):
+        if os.stat(self.hosts_file).st_size == 0:
             return True
         else:
             return False
 
-    @staticmethod
-    def read_host_file(file_name):
-        with open(file_name, "r+") as hf:
+    def read_host_file(self):
+        with open(self.hosts_file, "r+") as hf:
             line = hf.readlines()
             while line:
                 return line
+
+    def get_file_size(self):
+        f_size = os.stat(self.hosts_file)
+        return f_size.st_size
 
     @staticmethod
     def reformat_host_line(line):
@@ -86,23 +88,17 @@ class Hosts(object):
     @staticmethod
     def delete_host_from_list(hostname):
         for item in hosts_list:
-            item = ''.join(item)
-            if re.match(hostname, item):
+            if not re.match(hostname, item):
                 hosts_list.remove(item)
-
-    @staticmethod
-    def get_file_size(file_name):
-        fsize = os.stat(file_name)
-        return fsize.st_size
 
 
 def work_with_hosts_file():
     file_status = False
     host_file_work = Hosts()
-    hosts_file_check = host_file_work.check_if_file_exist(hosts_file)
+    hosts_file_check = host_file_work.check_if_file_exist()
     if hosts_file_check is True:
         print("Hosts file Exist")
-        hosts_file_check = host_file_work.check_if_file_not_empty(hosts_file)
+        hosts_file_check = host_file_work.check_if_file_not_empty()
         if hosts_file_check is True:
             print("Error!: File empty")
             file_status = False
@@ -111,11 +107,11 @@ def work_with_hosts_file():
     else:
         print("Error!: Hosts file does not exist!")
         print("Creating hosts file txt: please add hosts to file line by line, for example: www.facebook.com")
-        host_file_work.create_hosts_file(hosts_file)
-        hosts_file_check = host_file_work.check_if_file_exist(hosts_file)
+        host_file_work.create_hosts_file()
+        hosts_file_check = host_file_work.check_if_file_exist()
         if hosts_file_check is True:
             print("Hosts file created successfully")
-            hosts_file_check = host_file_work.check_if_file_not_empty(hosts_file)
+            hosts_file_check = host_file_work.check_if_file_not_empty()
             if hosts_file_check is True:
                 print("Error!: File empty")
                 print("Please add hosts to file line by line, for example: www.facebook.com")
@@ -124,13 +120,12 @@ def work_with_hosts_file():
             print("Error!: Hosts file NOT created please check folder permission or create file manually!")
             file_status = False
     if file_status is True:
-        hosts_file_read = host_file_work.read_host_file(hosts_file)
+        hosts_file_read = host_file_work.read_host_file()
         for item in hosts_file_read:
             hostname = host_file_work.reformat_host_line(item)
             if hostname not in hosts_list:
                 host_file_work.add_host_to_list(hostname)
-    file_size = host_file_work.get_file_size(hosts_file)
-    print(hosts_list)
+    file_size = host_file_work.get_file_size()
     return file_size
 
 
@@ -145,32 +140,33 @@ def get_connection_hosts_info():
         thread.join()
 
 
-def compare_hosts_file_size():
+def compare_hosts_file_size(file_size):
     host_file_work = Hosts()
-    file_size_check = host_file_work.get_file_size(hosts_file)
+    file_size_check = host_file_work.get_file_size()
+    print("file size check", file_size_check)
     if file_size < file_size_check:
-        hosts_file_read = host_file_work.read_host_file(hosts_file)
+        hosts_file_read = host_file_work.read_host_file()
         for item in hosts_file_read:
             hostname = host_file_work.reformat_host_line(item)
             if hostname not in hosts_list:
                 host_file_work.add_host_to_list(hostname)
     elif file_size > file_size_check:
-        hosts_file_read = host_file_work.read_host_file(hosts_file)
-        for item_host_file in hosts_file_read:
-
+        hosts_file_read = host_file_work.read_host_file()
+        for item_file in hosts_file_read:
+            hostname = host_file_work.reformat_host_line(item_file)
+            host_file_work.delete_host_from_list(hostname)
+    file_size = file_size_check
     return file_size
 
 
-def main():
-    work_with_hosts_file()
-    get_connection_hosts_info()
-
-
 if __name__ == "__main__":
-    main()
+    size = work_with_hosts_file()
+    get_connection_hosts_info()
     while True:
-        compare_hosts_file_size()
+        size = compare_hosts_file_size(size)
+        print(size)
         print(hosts_list)
+        sleep(5.0)
     #     main()
     #     # print(response_data)
     #     sleep(1)
