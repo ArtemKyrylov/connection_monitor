@@ -3,10 +3,8 @@ from connection_checker import CheckConnection
 from connection_checker import response_data
 from hosts import Hosts
 from hosts import hosts_list
-from create_rrd_base import RrdBaseCreate
-# from update_rrd_base import Update_rrd_base
-# from draw_rrd_graph import Draw_rrd_data_graphs
-rrd_graph_path = "rrd_graph"
+from rrd_base import RrdBaseCreate
+from rrd_graph import RrdDataGraphs
 
 
 def work_with_hosts_file():
@@ -72,6 +70,13 @@ def delete_rrd_base(h_item):
     rrd.delete_base(h_item)
 
 
+def create_rrd_graph():
+    rrd = RrdDataGraphs()
+    rrd.check_if_graph_path_exist()
+    for item in hosts_list:
+        rrd.create_graph(item)
+
+
 def compare_hosts_file():
     host_file_work = Hosts()
     file_hostname_updated = []
@@ -94,12 +99,7 @@ if __name__ == "__main__":
     work_with_hosts_file()
     get_connection_hosts_info()
     create_rrd_base()
+    create_rrd_graph()
     while True:
         compare_hosts_file()
         sleep(5)
-    # rrd_create = Rrd_base_create(host, rrd_db_path)
-    # rrd_create.check_if_base_path_exist()
-    # rrd_update = Update_rrd_base(response_data, rrd_db_path)
-    # rrd_update.update_rrd_base()
-    # rrd_graph_create = Draw_rrd_data_graphs(host, rrd_graph_path, rrd_db_path)
-    # rrd_graph_create.check_if_graph_path_exist()
