@@ -6,8 +6,6 @@ from hosts import hosts_list
 from create_rrd_base import RrdBaseCreate
 # from update_rrd_base import Update_rrd_base
 # from draw_rrd_graph import Draw_rrd_data_graphs
-
-rrd_db_path = "rrd_db"
 rrd_graph_path = "rrd_graph"
 
 
@@ -57,6 +55,23 @@ def get_connection_hosts_info():
         thread.join()
 
 
+def create_rrd_base():
+    rrd = RrdBaseCreate()
+    rrd.check_if_base_path_exist()
+    for item in hosts_list:
+        rrd_db_name = ''.join(item)
+        rrd_db = rrd.check_if_base_exist(rrd_db_name)
+        if rrd_db is False:
+            rrd_db.create_rrd_base(rrd_db_name)
+        else:
+            continue
+
+
+def delete_rrd_base(h_item):
+    rrd = RrdBaseCreate()
+    rrd.delete_base(h_item)
+
+
 def compare_hosts_file():
     host_file_work = Hosts()
     file_hostname_updated = []
@@ -67,19 +82,21 @@ def compare_hosts_file():
     for t_item in file_hostname_updated:
         if t_item not in hosts_list:
             host_file_work.add_host_to_list(t_item)
+            create_rrd_base()
     for h_item in hosts_list:
         if h_item not in file_hostname_updated:
             hosts_list.remove(h_item)
+            h_item = ''.join(h_item)
+            delete_rrd_base(h_item)
 
 
 if __name__ == "__main__":
     work_with_hosts_file()
     get_connection_hosts_info()
+    create_rrd_base()
     while True:
         compare_hosts_file()
-        print(hosts_list)
-        print(response_data)
-        sleep(60)
+        sleep(5)
     # rrd_create = Rrd_base_create(host, rrd_db_path)
     # rrd_create.check_if_base_path_exist()
     # rrd_update = Update_rrd_base(response_data, rrd_db_path)
