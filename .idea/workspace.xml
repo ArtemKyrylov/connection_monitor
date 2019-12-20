@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e26a75e-9472-48e1-929f-d5740c69b6dd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/create_rrd_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/connection_monitor.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/connection_monitor.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hosts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/hosts.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/start.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,9 +25,16 @@
   </component>
   <component name="ProjectId" id="1V2GZmFCGgoBfJPtcuVsLAEfxp2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -36,18 +44,6 @@
       </console-settings>
     </option>
     <option name="myUseExistingConsole" value="true" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -71,6 +67,18 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -97,5 +105,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="464" y="106" key="SettingsEditor" timestamp="1576820945214">
+      <screen x="0" y="0" width="1920" height="945" />
+    </state>
+    <state x="464" y="106" key="SettingsEditor/0.0.1920.945@0.0.1920.945" timestamp="1576820945214" />
+    <state x="643" y="299" key="com.intellij.ide.util.TipDialog" timestamp="1576820663848">
+      <screen x="0" y="0" width="1920" height="945" />
+    </state>
+    <state x="643" y="299" key="com.intellij.ide.util.TipDialog/0.0.1920.945@0.0.1920.945" timestamp="1576820663848" />
   </component>
 </project>
