@@ -1,85 +1,14 @@
 from time import sleep
-# from update_rrd_base import Update_rrd_base
+from connection_checker import CheckConnection
+from connection_checker import response_data
+from hosts import Hosts
+from hosts import hosts_list
 from create_rrd_base import RrdBaseCreate
+# from update_rrd_base import Update_rrd_base
 # from draw_rrd_graph import Draw_rrd_data_graphs
-from threading import Thread
-import subprocess
-import re
-import os
 
-hosts_list = []
-response_data = {}
 rrd_db_path = "rrd_db"
 rrd_graph_path = "rrd_graph"
-hosts_file = "hosts.txt"
-
-
-class CheckConnection(Thread):
-
-    def __init__(self, url, name):
-        Thread.__init__(self)
-        self.name = name
-        self.url = url
-
-    def run(self):
-        command = "ping " + self.url + " -c 1"
-        ping = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
-        ping_out = ping.communicate()[0]
-        pattern_ping_time = r'(time=\d{0,4}.\d{0,2})'
-        pattern_connection_lost = r'(100% packet loss)'
-        if re.findall(pattern_connection_lost, ping_out):
-            time_r_s = 999
-            print(self.url, time_r_s)
-            response_data.update({self.url: time_r_s})
-        elif re.findall(pattern_ping_time, ping_out):
-            response_time = re.findall(pattern_ping_time, ping_out)
-            time_r_s = ''.join(response_time)
-            time_r_s = time_r_s.strip('time=')
-            time_r_s = float(time_r_s)
-            print(self.url, time_r_s)
-            response_data.update({self.url: time_r_s})
-        else:
-            time_r_s = 999
-            print(self.url, time_r_s)
-            response_data.update({self.url: time_r_s})
-
-
-class Hosts(object):
-
-    def __init__(self):
-        self.hosts_file = hosts_file
-
-    def create_hosts_file(self):
-        file = open(self.hosts_file, "w+")
-        file.close()
-
-    def check_if_file_exist(self):
-        if os.path.isfile(self.hosts_file):
-            return True
-        else:
-            return False
-
-    def check_if_file_not_empty(self):
-        if os.stat(self.hosts_file).st_size == 0:
-            return True
-        else:
-            return False
-
-    def read_host_file(self):
-        with open(self.hosts_file, "r+") as hf:
-            line = hf.readlines()
-            while line:
-                return line
-
-    @staticmethod
-    def reformat_host_line(line):
-        line = ''.join(line)
-        line = line.replace('\n', '')
-        return line
-
-    @staticmethod
-    def add_host_to_list(hostname):
-        hosts_list.append(hostname)
 
 
 def work_with_hosts_file():
@@ -149,6 +78,7 @@ if __name__ == "__main__":
     while True:
         compare_hosts_file()
         print(hosts_list)
+        print(response_data)
         sleep(60)
     # rrd_create = Rrd_base_create(host, rrd_db_path)
     # rrd_create.check_if_base_path_exist()
