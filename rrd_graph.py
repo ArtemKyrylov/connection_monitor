@@ -30,11 +30,10 @@ class RrdDataGraphs:
 
     @staticmethod
     def create_graph(host):
-        host = ''.join(host)
         full_host_name = host
         host = host.replace(".", "")
         graph_name = rrd_graph_path + "/" + host + ".png"
-        rrd_base_name = rrd_db_path + "/" + host + ".rrd"
+        host_db_name = rrd_db_path + "/" + host + ".rrd"
         date_time = datetime.datetime.now()
         rrdtool.graph(graph_name, "-w", "700", "-h", "360", "-a", "PNG", "--slope-mode", "--start", "-86400", "--end", "now",
                           "--font", "WATERMARK:7:Liberation Sans", "--font", "TITLE:15:Liberation Sans",
@@ -43,6 +42,12 @@ class RrdDataGraphs:
                           "--title", full_host_name, "--watermark", "Generated " + str(date_time),
                           "--vertical-label", "Average rtt", "--lower-limit", "0", "--upper-limit", "999",
                           "--right-axis", "1:0", "--x-grid", "MINUTE:10:HOUR:1:MINUTE:120:0:%R", "--alt-y-grid",
-                          "--rigid", "DEF:" + host + "=" + rrd_base_name + ":" + host + ":LAST",
+                          "--rigid", "DEF:" + host + "=" + host_db_name + ":" + host + ":LAST",
                           "HRULE:100#ff0000::dashes=2", "LINE2:" + host + "#0000cc:" + host,
                           "GPRINT:" + host + ":LAST:" + "%6.3lf%s")
+
+    @staticmethod
+    def delete_graph(host):
+        host = host.replace(".", "")
+        path_to_graph = rrd_graph_path + "/" + host + ".rrd"
+        os.remove(path_to_graph)

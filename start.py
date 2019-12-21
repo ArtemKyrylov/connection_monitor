@@ -60,7 +60,7 @@ def create_rrd_base():
         rrd_db_name = ''.join(item)
         rrd_db = rrd.check_if_base_exist(rrd_db_name)
         if rrd_db is False:
-            rrd_db.create_rrd_base(rrd_db_name)
+            rrd.create_rrd_base(rrd_db_name)
         else:
             continue
 
@@ -88,6 +88,7 @@ def compare_hosts_file():
         if t_item not in hosts_list:
             host_file_work.add_host_to_list(t_item)
             create_rrd_base()
+            create_rrd_graph()
     for h_item in hosts_list:
         if h_item not in file_hostname_updated:
             hosts_list.remove(h_item)

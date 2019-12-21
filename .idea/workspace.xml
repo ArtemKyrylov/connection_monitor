@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6e26a75e-9472-48e1-929f-d5740c69b6dd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_rrd_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_rrd_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/start.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,9 +110,10 @@
       <screen x="0" y="0" width="1920" height="945" />
     </state>
     <state x="464" y="106" key="SettingsEditor/0.0.1920.945@0.0.1920.945" timestamp="1576820945214" />
-    <state x="643" y="299" key="com.intellij.ide.util.TipDialog" timestamp="1576820663848">
-      <screen x="0" y="0" width="1920" height="945" />
+    <state x="643" y="329" key="com.intellij.ide.util.TipDialog" timestamp="1576873362055">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="643" y="329" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1576873362055" />
     <state x="643" y="299" key="com.intellij.ide.util.TipDialog/0.0.1920.945@0.0.1920.945" timestamp="1576820663848" />
   </component>
 </project>

@@ -16,6 +16,7 @@ class RrdBaseCreate:
 
     @staticmethod
     def check_if_base_exist(hostname):
+        hostname = hostname.replace(".", "")
         path_to_db = rrd_db_path + "/" + hostname + ".rrd"
         if os.path.isfile(path_to_db):
             print("RRD base " + hostname + " exist!")
@@ -26,10 +27,12 @@ class RrdBaseCreate:
 
     @staticmethod
     def create_rrd_base(hostname):
+        hostname = hostname.replace(".", "")
         path_to_db = rrd_db_path + "/" + hostname + ".rrd"
         rrdtool.create(path_to_db, '--step', '60s', 'DS:' + hostname + ':GAUGE:120:0:999', 'RRA:MAX:0.5:1:1500')
 
     @staticmethod
     def delete_base(hostname):
+        hostname = hostname.replace(".", "")
         path_to_db = rrd_db_path + "/" + hostname + ".rrd"
         os.remove(path_to_db)
