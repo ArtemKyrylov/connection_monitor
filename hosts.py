@@ -14,6 +14,7 @@ class Hosts(object):
 
     def check_if_file_exist(self):
         if os.path.isfile(self.hosts_file):
+            print("Hosts file is empty")
             return True
         else:
             return False

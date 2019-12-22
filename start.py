@@ -5,6 +5,7 @@ from hosts import Hosts
 from hosts import hosts_list
 from rrd_base import RrdBaseCreate
 from rrd_graph import RrdDataGraphs
+from update_rrd_db import UpdateRrdBase
 
 
 def work_with_hosts_file():
@@ -77,10 +78,18 @@ def create_rrd_graph():
         rrd.create_graph(item)
 
 
+def delete_rrd_graph(h_item):
+    rrd = RrdDataGraphs()
+    rrd.delete_graph(h_item)
+
+
 def compare_hosts_file():
     host_file_work = Hosts()
     file_hostname_updated = []
     hosts_file_read = host_file_work.read_host_file()
+    hosts_file_check = host_file_work.check_if_file_not_empty()
+    if hosts_file_check is True:
+        return 0
     for item in hosts_file_read:
         hostname = host_file_work.reformat_host_line(item)
         file_hostname_updated.append(hostname)
@@ -94,6 +103,12 @@ def compare_hosts_file():
             hosts_list.remove(h_item)
             h_item = ''.join(h_item)
             delete_rrd_base(h_item)
+            delete_rrd_graph(h_item)
+
+
+def update_rrd_base():
+    rrd_update = UpdateRrdBase(response_data)
+    rrd_update.update_rrd_base()
 
 
 if __name__ == "__main__":
@@ -103,4 +118,7 @@ if __name__ == "__main__":
     create_rrd_graph()
     while True:
         compare_hosts_file()
+        get_connection_hosts_info()
+        update_rrd_base()
+        create_rrd_graph()
         sleep(5)

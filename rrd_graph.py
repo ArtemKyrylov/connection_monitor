@@ -49,5 +49,5 @@ class RrdDataGraphs:
     @staticmethod
     def delete_graph(host):
         host = host.replace(".", "")
-        path_to_graph = rrd_graph_path + "/" + host + ".rrd"
+        path_to_graph = rrd_graph_path + "/" + host + ".png"
         os.remove(path_to_graph)
