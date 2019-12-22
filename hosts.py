@@ -14,13 +14,13 @@ class Hosts(object):
 
     def check_if_file_exist(self):
         if os.path.isfile(self.hosts_file):
-            print("Hosts file is empty")
             return True
         else:
             return False
 
     def check_if_file_not_empty(self):
         if os.stat(self.hosts_file).st_size == 0:
+            print("Hosts file is empty")
             return True
         else:
             return False

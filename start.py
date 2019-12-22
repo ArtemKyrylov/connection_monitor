@@ -102,6 +102,8 @@ def compare_hosts_file():
         if h_item not in file_hostname_updated:
             hosts_list.remove(h_item)
             h_item = ''.join(h_item)
+            if h_item in response_data:
+                del response_data[h_item]
             delete_rrd_base(h_item)
             delete_rrd_graph(h_item)
 
