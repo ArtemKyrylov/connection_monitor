@@ -15,6 +15,7 @@ class CheckConnection(Thread):
         command = "ping " + self.url + " -c 1"
         ping = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
         ping_out = ping.communicate()[0]
+        ping_out = ping_out.decode('utf-8')
         pattern_ping_time = r'(time=\d{0,4}.\d{0,2})'
         pattern_connection_lost = r'(100% packet loss)'
         if re.findall(pattern_connection_lost, ping_out):

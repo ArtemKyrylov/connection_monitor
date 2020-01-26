@@ -6,8 +6,7 @@ from hosts import hosts_list
 from rrd_base import RrdBaseCreate
 from rrd_graph import RrdDataGraphs
 from update_rrd_db import UpdateRrdBase
-from http_monitor.http_server import start_http_server
-from http_monitor.page import load_monitor_page
+import http_server
 
 
 def work_with_hosts_file():
@@ -95,13 +94,11 @@ def compare_hosts_file():
     for item in hosts_file_read:
         hostname = host_file_work.reformat_host_line(item)
         file_hostname_updated.append(hostname)
-        load_monitor_page()
     for t_item in file_hostname_updated:
         if t_item not in hosts_list:
             host_file_work.add_host_to_list(t_item)
             create_rrd_base()
             create_rrd_graph()
-            load_monitor_page()
     for h_item in hosts_list:
         if h_item not in file_hostname_updated:
             hosts_list.remove(h_item)
@@ -110,7 +107,6 @@ def compare_hosts_file():
                 del response_data[h_item]
             delete_rrd_base(h_item)
             delete_rrd_graph(h_item)
-            load_monitor_page()
 
 
 def update_rrd_base():
@@ -118,12 +114,16 @@ def update_rrd_base():
     rrd_update.update_rrd_base()
 
 
+def start_server():
+    http_server.server_thread.start()
+
+
 if __name__ == "__main__":
     work_with_hosts_file()
     get_connection_hosts_info()
     create_rrd_base()
     create_rrd_graph()
-    start_http_server()
+    start_server()
     while True:
         compare_hosts_file()
         get_connection_hosts_info()
