@@ -2,8 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e26a75e-9472-48e1-929f-d5740c69b6dd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hosts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/hosts.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monitor_page.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/1921681254.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/1921681254.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwartemkyrylovcom.rrd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwartemkyrylovme.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwartemkyrylovme.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwcoubcom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwcoubcom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwfacebookcom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwfacebookcom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwffffcom.rrd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwinstagramcom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwinstagramcom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwlinkedincom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwlinkedincom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwpinterestcom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwpinterestcom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwqqcom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwqqcom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwtwittercom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwtwittercom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwvibercom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwvibercom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwvkcom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwvkcom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwwhatsappcom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwwhatsappcom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_db/wwwyoutubecom.rrd" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_db/wwwyoutubecom.rrd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/1921681254.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/1921681254.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwartemkyrylovcom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwartemkyrylovme.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwartemkyrylovme.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwcoubcom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwcoubcom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwfacebookcom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwfacebookcom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwffffcom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwinstagramcom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwinstagramcom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwlinkedincom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwlinkedincom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwpinterestcom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwpinterestcom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwqqcom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwqqcom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwtwittercom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwtwittercom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwvibercom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwvibercom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwvkcom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwvkcom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwwhatsappcom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwwhatsappcom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rrd_graph/wwwyoutubecom.png" beforeDir="false" afterPath="$PROJECT_DIR$/rrd_graph/wwwyoutubecom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/start.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,11 +146,12 @@
       <screen x="0" y="0" width="1920" height="945" />
     </state>
     <state x="464" y="106" key="SettingsEditor/0.0.1920.945@0.0.1920.945" timestamp="1576980258389" />
-    <state x="643" y="332" key="com.intellij.ide.util.TipDialog" timestamp="1579561718491">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="643" y="302" key="com.intellij.ide.util.TipDialog" timestamp="1579974032709">
+      <screen x="0" y="0" width="1920" height="955" />
     </state>
     <state x="643" y="329" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1576873362055" />
     <state x="643" y="332" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1579561718491" />
     <state x="643" y="299" key="com.intellij.ide.util.TipDialog/0.0.1920.945@0.0.1920.945" timestamp="1577156182944" />
+    <state x="643" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.955@0.0.1920.955" timestamp="1579974032709" />
   </component>
 </project>
