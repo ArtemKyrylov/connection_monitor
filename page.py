@@ -16,8 +16,8 @@ HTML = """
 <tr>
 {% for image_source in images %}
   <td><img src="{{ image_source }}"></td>
-  {% if (loop.index % 4) == 3 %}
-  </tr><tr>
+  {% if (loop.index0 % 4) == 3 %}
+  </tr>
   {% endif %}
 {% endfor %}
 </tr>
@@ -29,12 +29,15 @@ HTML = """
 
 def monitor_page():
     if os.path.exists(monitor_file):
-        open(monitor_file, 'w').close()
+        f = open(monitor_file, 'w')
+        f.close()
     else:
-        open(monitor_file, 'w').close()
+        f = open(monitor_file, 'w')
+        f.close()
 
 
 def get_image_list():
+    image_list.clear()
     try:
         for file in os.listdir(image_folder):
             image_path = image_folder + "/" + file

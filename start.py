@@ -100,6 +100,7 @@ def compare_hosts_file():
             host_file_work.add_host_to_list(t_item)
             create_rrd_base()
             create_rrd_graph()
+            generate_html_monitor_page()
     for h_item in hosts_list:
         if h_item not in file_hostname_updated:
             hosts_list.remove(h_item)
@@ -108,6 +109,7 @@ def compare_hosts_file():
                 del response_data[h_item]
             delete_rrd_base(h_item)
             delete_rrd_graph(h_item)
+            generate_html_monitor_page()
 
 
 def update_rrd_base():
@@ -129,9 +131,9 @@ if __name__ == "__main__":
     create_rrd_base()
     create_rrd_graph()
     start_http_server()
+    generate_html_monitor_page()
     while True:
         compare_hosts_file()
-        generate_html_monitor_page()
         get_connection_hosts_info()
         update_rrd_base()
         create_rrd_graph()
