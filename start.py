@@ -7,6 +7,7 @@ from rrd_base import RrdBaseCreate
 from rrd_graph import RrdDataGraphs
 from update_rrd_db import UpdateRrdBase
 import http_server
+import page
 
 
 def work_with_hosts_file():
@@ -114,8 +115,12 @@ def update_rrd_base():
     rrd_update.update_rrd_base()
 
 
-def start_server():
+def start_http_server():
     http_server.server_thread.start()
+
+
+def generate_html_monitor_page():
+    page.load_monitor_page()
 
 
 if __name__ == "__main__":
@@ -123,10 +128,12 @@ if __name__ == "__main__":
     get_connection_hosts_info()
     create_rrd_base()
     create_rrd_graph()
-    start_server()
+    start_http_server()
     while True:
         compare_hosts_file()
+        generate_html_monitor_page()
         get_connection_hosts_info()
         update_rrd_base()
         create_rrd_graph()
         sleep(60)
+
